@@ -34,7 +34,7 @@ Copy
 airflow users create --username admin --firstname SeuNome --lastname SeuSobrenome --role Admin --email seuemail@example.com
 Configure as Conexões:
 
-No Airflow, crie uma conexão com o Databricks:
+#No Airflow, crie uma conexão com o Databricks:
 
 Conn Id: databricks_brewery_conn
 
@@ -48,7 +48,7 @@ Token: Token de API do Databricks.
 
 Execute o Pipeline:
 
-Inicie o servidor web do Airflow:
+#Inicie o servidor web do Airflow:
 
 bash
 Copy
@@ -60,44 +60,48 @@ Copy
 airflow scheduler
 Acesse a interface do Airflow (http://localhost:8080) e execute o DAG brewery_pipeline.
 
-Escolhas de Design
-Arquitetura de Medalhão: Os dados são armazenados em três camadas (bronze, silver, gold) para garantir qualidade e escalabilidade.
+#Escolhas de Design
+Arquitetura de Medalhão:
+Os dados são armazenados em três camadas (bronze, silver, gold) para garantir qualidade e escalabilidade.
 
-Orquestração com Airflow: O Airflow foi escolhido por sua flexibilidade e suporte a agendamento, retentativas e monitoramento.
+#Orquestração com Airflow:
+O Airflow foi escolhido por sua flexibilidade e suporte a agendamento, retentativas e monitoramento.
 
-Notificações: Foram implementadas notificações por e-mail e Slack para alertar sobre falhas ou sucesso na execução do pipeline.
+#Notificações:
+Foram implementadas notificações por e-mail e Slack para alertar sobre falhas ou sucesso na execução do pipeline.
 
-Compensações
+#Compensações
 Simplicidade vs. Complexidade: Optamos por um design simples, mas escalável, que pode ser facilmente adaptado para cenários mais complexos.
 
-Monitoramento: As notificações básicas atendem ao requisito, mas em um ambiente de produção, ferramentas como Prometheus e Grafana seriam recomendadas.
+#Monitoramento:
+As notificações básicas atendem ao requisito, mas em um ambiente de produção, ferramentas como Prometheus e Grafana seriam recomendadas.
 
-Tratamento de Erros
+#Tratamento de Erros
 Retentativas: O pipeline está configurado para tentar novamente em caso de falha (3 tentativas com intervalo de 5 minutos).
 
-Notificações: Em caso de falha, o Airflow envia um e-mail para o administrador.
+#Notificações:
+Em caso de falha, o Airflow envia um e-mail para o administrador.
 
-Logs: Todos os logs são armazenados no Airflow para facilitar a depuração.
+#Logs:
+Todos os logs são armazenados no Airflow para facilitar a depuração.
 
-Serviços em Nuvem (Opcional)
+#Serviços em Nuvem (Opcional)
 Se você quiser executar o pipeline em um ambiente de nuvem, siga estas instruções:
 
-AWS:
+#AWS:
 
 Use o Amazon MWAA (Managed Workflows for Apache Airflow) para executar o DAG.
 
 Configure um bucket no S3 para armazenar os dados.
 
-GCP:
+#GCP:
 
 Use o Cloud Composer para executar o DAG.
 
 Configure um bucket no Cloud Storage para armazenar os dados.
 
-Azure:
+#Azure:
 
 Use o Azure Data Factory ou Azure Databricks para executar o pipeline.
 
 Configure um container no Azure Data Lake Storage para armazenar os dados.
-
-Nota: Não inclua credenciais ou informações sensíveis no repositório público.
